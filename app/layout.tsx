@@ -2,6 +2,7 @@ import React from "react"
 import type { Metadata, Viewport } from "next"
 import { Inter, JetBrains_Mono } from "next/font/google"
 import { Toaster } from "sonner"
+import { SpeedInsights } from "@vercel/speed-insights/next"
 import { AuthProvider } from "@/lib/auth"
 import { ErrorBoundary } from "@/components/error-boundary"
 
@@ -44,6 +45,7 @@ export default function RootLayout({
           </AuthProvider>
           <Toaster position="top-right" richColors />
         </ErrorBoundary>
+        <SpeedInsights />
       </body>
     </html>
   )
