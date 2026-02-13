@@ -157,19 +157,19 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const signIn = async (email: string, password: string) => {
     try {
-      const { error } = await supabase.auth.signInWithPassword({
+      const { error, data } = await supabase.auth.signInWithPassword({
         email,
         password,
       })
 
       if (error) return { error }
 
-      // Update last login
-      if (user) {
+      // Update last login - use the user from response, not component state
+      if (data.user?.id) {
         await supabase
           .from('user_profiles')
           .update({ last_login: new Date().toISOString() })
-          .eq('id', user.id)
+          .eq('id', data.user.id)
       }
 
       return { error: null }
